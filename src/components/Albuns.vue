@@ -3,6 +3,7 @@
     <ul>
         <li v-for="album in albuns" :key="album.id">
             <h2>{{album.title}}</h2>
+            <img :src="album.url">
         </li>
     </ul>
 </template>
@@ -14,9 +15,6 @@ export default {
     name: 'Albuns',
         data() {
             return {
-                userId: "",
-                id: "",
-                title: "",
                 albuns: [],
                 baseURI: "https://jsonplaceholder.typicode.com/albums"
         }; 

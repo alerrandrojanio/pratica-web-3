@@ -15,10 +15,6 @@ export default {
     name: 'Posts',
         data() {
             return {
-                userId: "",
-                id: "",
-                title: "",
-                body: "",
                 posts: [],
                 baseURI: "https://jsonplaceholder.typicode.com/posts"
         }; 

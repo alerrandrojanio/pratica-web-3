@@ -1,20 +1,31 @@
 <template>
+    <button @click="reload">App</button>
     <Posts />
     <Albuns />
+    <Photos />
+    <Todos />
 </template>
 
 <script>
-import axios from 'axios'
 import Posts from './components/Posts.vue'
 import Albuns from './components/Albuns.vue'
+import Photos from './components/Photos.vue'
+import Todos from './components/Todos.vue'
 
 export default {
   name: 'App',
   components: {
     Posts,
     Albuns,
+    Photos,
+    Todos,
     
-  }
+  },
+  methods: {
+    reload: function(){
+      window.location.reload()
+    }
+  },
 }
 </script>
 
@@ -26,5 +37,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+li {
+  text-align: left;
 }
 </style>
