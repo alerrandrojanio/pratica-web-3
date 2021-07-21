@@ -1,13 +1,33 @@
 <template>
     <button @click="fetchAlbuns">Fetch Albuns</button>
-    <ul>
-        <li v-for="album in albuns" :key="album.id">
-            <h2>{{album.title}}</h2>
-            <img :src="album.url">
-        </li>
-    </ul>
-</template>
+        <div  v-for="user in users" :key="user.id">
+            <li>
+                <h2>Nome: </h2>
+                    <p>{{user.name}}</p>
+                
+                <div v-for="album in albuns" :key="album.id">
+                    <div>
+                        <ul>
+                            <li v-if="album.userId === user.id">
+                                <p>Título do album: {{album.title}}</p>
 
+                                <h3>Fotos: </h3>
+                                <ul>
+                                    <div v-for="photo in photos" :key="photo.id">
+                                        <li v-if="photo.albumId === album.id">
+                                            <p>Título da foto: {{photo.title}}</p>
+                                            <img :src="photo.thumbnailUrl">
+                                            <p>URL: {{photo.url}}</p>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </div>
+</template>
 <script>
 import axios from 'axios';
 
@@ -16,16 +36,23 @@ export default {
         data() {
             return {
                 albuns: [],
-                baseURI: "https://jsonplaceholder.typicode.com/albums"
+                users: [],
+                photos: []
+                
         }; 
     },
     methods:{
-        fetchAlbuns: function(){
-            axios.get(this.baseURI).then((result) => {
-                this.albuns = (result.data);
-            });
-        } 
-
+         fetchAlbuns (){
+            axios.all([
+                axios.get('https://jsonplaceholder.typicode.com/albums'),
+                axios.get('https://jsonplaceholder.typicode.com/users'),
+                axios.get('https://jsonplaceholder.typicode.com/photos')
+            ]).then(axios.spread((albunRes, userRes, photoRes)=>{
+                this.albuns = albunRes.data
+                this.users = userRes.data
+                this.photos = photoRes.data
+            }))
+        }
     },
 };
 </script>
