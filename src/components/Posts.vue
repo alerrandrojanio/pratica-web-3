@@ -3,22 +3,20 @@
     <ul>
         <div v-for="user in users" :key="user.id">
             <li>
-                <h2>Nome:</h2>
-                    <p>{{user.name}}</p>
-
+                <h2>Nome: {{user.name}}</h2>
                 <div v-for="post in posts" :key="post.id">
                     <div>
                         <ul>
                             <li v-if="post.userId === user.id">
-                                <p>Title: {{post.title}}</p>
-                                <p>Body: {{ post.body }}</p>
-                                <h3>Comentários: </h3>
+                                <h4>Title: {{post.title}}</h4>
+                                <h4>Body: {{post.body}}</h4>
+                                <h6>Comentários: </h6>
                                 <ul>
                                     <div v-for="comment in comments" :key="comment.id">
                                         <li v-if="comment.postId === post.id">
                                             <p>Nome: {{comment.name}}</p>
-                                            <p>Email: {{ comment.email }}</p>
-                                            <p>Body: {{ comment.body }}</p>
+                                            <p>Email: {{comment.email}}</p>
+                                            <p>Body: {{comment.body}}</p>
                                         </li>
                                     </div>
                                 </ul>
@@ -26,6 +24,7 @@
                         </ul>
                     </div>
                 </div>
+                <hr>
             </li>
         </div>
     </ul>
@@ -49,9 +48,9 @@ export default {
                 axios.get('https://jsonplaceholder.typicode.com/posts'),
                 axios.get('https://jsonplaceholder.typicode.com/users'),
                 axios.get('https://jsonplaceholder.typicode.com/comments')
-            ]).then(axios.spread((postRes, userRes, commentsRes)=>{
-                this.posts = postRes.data
-                this.users = userRes.data
+            ]).then(axios.spread((postsRes, usersRes, commentsRes)=>{
+                this.posts = postsRes.data
+                this.users = usersRes.data
                 this.comments = commentsRes.data
             }))
         }

@@ -2,14 +2,12 @@
     <button @click="reload">App</button>
     <Posts />
     <Albuns />
-    <Photos />
     <Todos />
 </template>
 
 <script>
 import Posts from './components/Posts.vue'
 import Albuns from './components/Albuns.vue'
-import Photos from './components/Photos.vue'
 import Todos from './components/Todos.vue'
 
 export default {
@@ -17,7 +15,6 @@ export default {
   components: {
     Posts,
     Albuns,
-    Photos,
     Todos,
     
   },

@@ -2,9 +2,7 @@
     <button @click="fetchAlbuns">Fetch Albuns</button>
         <div  v-for="user in users" :key="user.id">
             <li>
-                <h2>Nome: </h2>
-                    <p>{{user.name}}</p>
-                
+                <h2>Nome: {{user.name}}</h2>
                 <div v-for="album in albuns" :key="album.id">
                     <div>
                         <ul>
@@ -16,8 +14,7 @@
                                     <div v-for="photo in photos" :key="photo.id">
                                         <li v-if="photo.albumId === album.id">
                                             <p>Título da foto: {{photo.title}}</p>
-                                            <img :src="photo.thumbnailUrl">
-                                            <p>URL: {{photo.url}}</p>
+                                            <a :href="photo.url"><img :src="photo.thumbnailUrl"></a>
                                         </li>
                                     </div>
                                 </ul>
@@ -25,6 +22,7 @@
                         </ul>
                     </div>
                 </div>
+                <hr>
             </li>
         </div>
 </template>
@@ -47,10 +45,10 @@ export default {
                 axios.get('https://jsonplaceholder.typicode.com/albums'),
                 axios.get('https://jsonplaceholder.typicode.com/users'),
                 axios.get('https://jsonplaceholder.typicode.com/photos')
-            ]).then(axios.spread((albunRes, userRes, photoRes)=>{
-                this.albuns = albunRes.data
-                this.users = userRes.data
-                this.photos = photoRes.data
+            ]).then(axios.spread((albunsRes, usersRes, photosRes)=>{
+                this.albuns = albunsRes.data
+                this.users = usersRes.data
+                this.photos = photosRes.data
             }))
         }
     },
